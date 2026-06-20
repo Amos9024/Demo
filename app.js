@@ -16,7 +16,7 @@ app.get('/goals', (req, res) => {
 });
 
 app.post('/goals', (req, res) => { 
-  let newGoal = { id: Date.now(), ...req.body }; 
+  let newGoal = { id: Date.now(), title: req.body.title }; 
   goals.push(newGoal); 
   res.status(201).json(newGoal); 
 }); 
@@ -25,7 +25,7 @@ app.put('/goals/:id', (req, res) => {
   let id = parseInt(req.params.id); 
   let index = goals.findIndex(g => g.id === id); 
   if (index !== -1) { 
-  goals[index] = { ...goals[index], ...req.body }; 
+  goals[index] = { ...goals[index], title: req.body.title }; 
   res.json(goals[index]); 
   } else { 
   res.status(404).json({ error: 'Goal not found' }); 
